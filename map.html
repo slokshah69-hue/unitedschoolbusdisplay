@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -306,14 +305,33 @@
             }
         }
 
-        /* High-Contrast Glowing Vacant Slots */
+        /* DASH ROTATION KEYFRAMES (Creates the marching dashes animation) */
+        @keyframes march-clockwise {
+            from {
+                stroke-dashoffset: 0;
+            }
+            to {
+                stroke-dashoffset: -24; /* Seamless loop over a multiple of pattern width (8 + 4 = 12) */
+            }
+        }
+
+        @keyframes march-anticlockwise {
+            from {
+                stroke-dashoffset: 0;
+            }
+            to {
+                stroke-dashoffset: 24;
+            }
+        }
+
+        /* High-Contrast Glowing Vacant Slots (Marching Anticlockwise) */
         .parking-slot, .parking-available {
             fill: #0d0d0d !important; /* Elegant black background for deep high contrast */
             stroke: #FF0000 !important; /* Pure high-contrast red dashes */
             stroke-width: 3.5px !important;
             stroke-dasharray: 8, 4; /* Creates the "-" dash pattern */
             transition: stroke 0.3s, fill 0.3s;
-            animation: red-glow-pulse 3s ease-in-out infinite alternate;
+            animation: red-glow-pulse 3s ease-in-out infinite alternate, march-anticlockwise 2.2s linear infinite;
         }
 
         /* SVG interactive slot styling */
@@ -339,22 +357,22 @@
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
         }
 
-        /* High-Contrast Glowing Lime Green Active Slots utilizing #008208 */
+        /* High-Contrast Glowing Lime Green Active Slots utilizing #008208 (Marching Clockwise) */
         .parking-emerald {
             fill: #0d0d0d !important; /* Elegant black background for deep high contrast */
             stroke: #008208 !important; /* High-contrast emerald green border dashes */
             stroke-width: 3.5px !important;
             stroke-dasharray: 8, 4; /* Creates the "-" hyphen-like dashed outline */
-            animation: green-glow-pulse 2.2s ease-in-out infinite alternate;
+            animation: green-glow-pulse 2.2s ease-in-out infinite alternate, march-clockwise 1.8s linear infinite;
         }
 
-        /* High-Contrast Glowing Yellow Broken Slots */
+        /* High-Contrast Glowing Yellow Broken Slots (Marching Anticlockwise) */
         .parking-broken {
             fill: #0d0d0d !important;
             stroke: #ffff00 !important; /* Bright Yellow dashes */
             stroke-width: 3.5px !important;
             stroke-dasharray: 8, 4;
-            animation: yellow-glow-pulse 2.2s ease-in-out infinite alternate;
+            animation: yellow-glow-pulse 2.2s ease-in-out infinite alternate, march-anticlockwise 1.8s linear infinite;
         }
 
         /* Vacant slot text styling */
@@ -1492,7 +1510,7 @@
             <div class="legend" id="legendContainer">
                 <div class="legend-item">
                     <div class="legend-box tbd"></div>
-                    <span>TBD - VACANT SLOT (GLOWING RED)</span>
+                    <span>TBD - VACANT SLOT (ROTATING RED)</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-box building"></div>
@@ -1500,11 +1518,11 @@
                 </div>
                 <div class="legend-item">
                     <div class="legend-box emerald"></div>
-                    <span>BUS ACTIVE (EMERALD GREEN)</span>
+                    <span>BUS ACTIVE (ROTATING GREEN)</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-box broken"></div>
-                    <span>REPAIR / BROKEN BUS (GLOWING BRIGHT YELLOW)</span>
+                    <span>REPAIR / BROKEN (ROTATING YELLOW)</span>
                 </div>
                 <div class="legend-item" style="grid-column: 1 / -1;">
                     <span style="color: #facc15; text-align: center; width: 100%;">⚙ CLICK OR DRAG ANY PARKING GRID TO VIEW DETAILS / SHIFT BUSES</span>
